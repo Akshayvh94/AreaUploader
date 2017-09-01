@@ -1,0 +1,9 @@
+Vsts call has been made at:7/26/2017 11:42:04 AM
+
+
+Time Taken: 0
+Error has been occured :
+Invalid URI: The hostname could not be parsed.
+   at System.Uri.CreateThis(String uri, Boolean dontEscape, UriKind uriKind)
+   at System.Uri..ctor(String uriString)
+   at AreaUploader.Controllers.HomeController.ValidateDetails(Authentication auth) in C:\Users\AkshayH\Documents\Visual Studio 2017\Projects\AreaUploader\AreaUploader\Controllers\HomeController.cs:line 113

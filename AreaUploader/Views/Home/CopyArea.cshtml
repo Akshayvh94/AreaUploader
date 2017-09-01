@@ -1,0 +1,143 @@
+﻿@using AreaUploader.Models
+@model AreaUpload.ProjectCount
+
+@{
+    ViewBag.Title = "CopyArea";
+}
+
+@{
+    string username = null;
+    string password = null;
+    username = Session["Username"].ToString();
+    password = Session["Password"].ToString();
+}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/AppScripts/CopyPath.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<div id="proDiv">
+    @using (Html.BeginForm("Import", "Home", FormMethod.Post, new { enctype = "multipart/form-data", @id = "Import", @style = "margin-top: 20px;" }))
+    {
+        @Html.HiddenFor(model => model.AccName)
+        @Html.HiddenFor(model => model.PAT)
+
+        <div class="col-sm-4">
+            <label>Projects</label>
+            @Html.DropDownListFor(model => model.SelectedID, new SelectList(@Model.ProjectList.Items, "Text", "Text"), "--select project--", new { @class = "form-control rmv", @id = "ProjectList" })
+        </div>
+        <div class="col-sm-4">
+            <label>Choose a csv File (.csv)</label>
+            @Html.TextBoxFor(x => x.filechoosen, new { @id = "filechoosen", @type = "file", @class = "form-control rmv", @accept = ".csv" })
+            @*<input type="file" accept=".xlsx,.xls,image/*,.doc, .docx,.ppt, .pptx,.txt,.pdf" />*@
+        </div>
+        <div class="col-sm-4">
+            <button type="button" class="btn btn-primary" style="margin-top:25px" id="btnImport">Import</button>
+        </div>
+        <div class="col-sm-8" style="padding: 20px;">
+            <label style="color:red; display:inline">**</label><h5>The accepted file format is .csv. <a href="~/Files/AreaUpload.csv" download>Click here</a> to download a sample of file.</h5><br />
+        </div>
+    }
+</div>
+<div class="fade modal-fade-in-scale-up" id="loader" aria-hidden="true" aria-labelledby="exampleModalTitle" role="dialog" tabindex="-1" style="display: none;">
+    <img src="~/Images/InternetSlowdown_Day.gif" style="margin-left:420px; width:200px" />
+    <h4><label style="color:red">***</label>Please do not refresh the page</h4>
+</div>
+@*background-color:#FF91B0;*@
+<div class="col-sm-offset-3 col-sm-6 hidden" id="diverror" style="border:groove 2px #FF91B0; margin-top: 60px;">
+    <div>
+        @if (!string.IsNullOrEmpty(Model.ErrList))
+            {
+            @Html.HiddenFor(model => model.ErrList, new { @id = "erlist" })
+            @Html.HiddenFor(model => model.AccName, new { @id = "accname" })
+            @Html.HiddenFor(model => model.PAT, new { @id = "pat" })
+
+            string[] values = new string[] { };
+
+            if (!string.IsNullOrEmpty(Model.ErrList))
+            {
+
+                values = Model.ErrList.Split('*');
+                foreach (var msg in values)
+                {
+                    <img src="~/Images/warning-sign.png" style="width:15px; height:15px;" />
+                    <label id="errmsg" style="color:black;font-weight:100;display:inline">@msg</label><br />
+                }
+                <script>
+                    $(document).ready(function () {
+                        $('#diverror').removeClass('hidden');
+                        $('#closebtn').click(function () {
+                            $('#diverror').empty();
+                            $('#diverror').addClass('hidden');
+                            $('#erlist').empty();
+                        });
+                        var query = window.location.search.substring(1)
+                        if (query.length) {
+                            if (window.history != undefined && window.history.pushState != undefined) {
+                                window.history.pushState({}, document.title, window.location.pathname + "?accname=" + $('#accname').val() + "&pat=" + $('#pat').val());
+                            }
+                        }
+                    });
+                </script>
+            }
+        }
+    </div>
+    <div>
+        @if (!string.IsNullOrEmpty(Model.SuccessMsg))
+            {
+            @Html.HiddenFor(model => model.ErrList, new { @id = "erlistm" })
+            @Html.HiddenFor(model => model.AccName, new { @id = "accnamem" })
+            @Html.HiddenFor(model => model.PAT, new { @id = "patm" })
+            <br />
+            <br />
+            <script>
+                $(document).ready(function () {
+                    $('#diverror').removeClass('hidden');
+                    $('#closebtn').click(function () {
+                        $('#diverror').empty();
+                        $('#diverror').addClass('hidden');
+                    });
+                    var query = window.location.search.substring(1)
+                    if (query.length) {
+                        if (window.history != undefined && window.history.pushState != undefined) {
+                            window.history.pushState({}, document.title, window.location.pathname + "?accname=" + $('#accnamem').val() + "&pat=" + $('#patm').val());
+                        }
+                    }
+                });
+            </script>
+            <img src="~/Images/succimgs.jpg" style="width:10px; height:10px;" />
+
+            <label id="succ" style="color:green;font-weight:100;">@Model.SuccessMsg</label><br />
+            <label>Here is the URL for the areas:</label><br />
+            <a id="url" style="color:blue;font-weight:100;" href="@Model.accURL">@Model.accURL</a>
+        }
+    </div>
+    <div style="margin-top:15px; margin-bottom:15px;">
+        <button class="btn btn-primary btn-sm pull-right" id="closebtn">Close</button><br />
+    </div>
+</div>
+@*<script>
+
+            $('#closebtn').click(function () {
+                $('#diverror').empty();
+                $('#diverror').addClass('hidden');
+                $('#erlist').empty();
+                 var newUri = window.location.origin + window.location.pathname + "?accname=" + $('#accname').val() + "&pat=" + $('#pat').val();
+                var newUri = window.location.pathname + "?accname=" + $('#accname').val() + "&pat=" + $('#pat').val();
+
+                 window.history.pushState("object or string", "Title", "/" + newUri);
+                console.log(newUri);
+                window.location.replace(newUri);
+                /window.location.href = "../Home/CopyArea?pat=" + $('#pat').val() + "&" + $('#accname').val();
+                window.location.assign(newUri);
+                window.location.href = "../Home/index";
+
+
+                window.history.location = newUri;
+                 var newUri = window.location.origin + window.location.pathname + "?accname=" + $('#accname').val() + "&pat=" + $('#pat').val();
+            });
+
+
+    </script>*@

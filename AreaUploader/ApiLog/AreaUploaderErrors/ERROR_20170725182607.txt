@@ -1,0 +1,13 @@
+Vsts call has been made at:7/25/2017 6:26:07 PM
+
+
+Time Taken: 4.3527206
+Error has been occured :
+{
+  "innerException": null,
+  "message": "VS402371: Classification node name Suit 2 is already in use by a different child of parent classification node f8156eec-9ed8-44b0-a86a-023731518c97. Choose a different name and try again.",
+  "typeName": "Microsoft.TeamFoundation.WorkItemTracking.Server.Metadata.ClassificationNodeDuplicateNameException, Microsoft.TeamFoundation.WorkItemTracking.Server, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+  "typeKey": "ClassificationNodeDuplicateNameException",
+  "errorCode": 0,
+  "eventId": 3200
+}

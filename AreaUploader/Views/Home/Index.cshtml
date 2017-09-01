@@ -1,0 +1,58 @@
+﻿@model  AreaUploader.Models.AreaUpload.Authentication
+@{
+    ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    string username = null;
+    string password = null;
+    username = Session["Username"].ToString();
+    password = Session["Password"].ToString();
+}
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/AppScripts/CopyPath.js"></script>
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+
+<div style="margin-top:25px">
+    <form method="post" action="~/Home/Index" id="Verify">
+        <div id="detaildiv">
+            <div><h4 style="padding-left: 20px;">Account Details</h4></div>
+            <div class="col-sm-8 form-inline" style="padding: 20px;">
+                <label>Account Name :</label><span style="color:red;padding-right:60px;">*</span>
+                <span>https://</span>
+                @*<input type="text" id="txtAccName" placeholder="Account Name" class="form-control form-inline rmv" />*@
+                @Html.TextBoxFor(x => x.accname, new { @id = "txtAccName", @placeholder = "Account Name", @class = "form-control form-inline rmv" })
+                <span>.visualstudio.com</span>
+            </div>
+            <span></span>
+            <div class="col-sm-8 form-inline" style="padding: 20px;">
+                <label>Personal Access Token (PAT) :</label><span style="color:red; padding-right:5px;">*</span>
+                @*<input type="password" id="txtPat" placeholder="PAT" class="form-control rmv" />*@
+                @Html.PasswordFor(x => x.pat, new { @id = "txtPat", @placeholder = "PAT", @class = "form-control rmv" })
+            </div>
+            <div class="col-sm-8" style="padding: 20px;">
+                <button type="button" id="submitpat" class="btn btn-primary">Verify & Continue</button>
+            </div>
+            
+            <div class="col-sm-6">
+                <div>
+                    @if (!String.IsNullOrEmpty(Model.Message))
+                    {
+                        <label id="err" style="color:red">@Model.Message</label><br />
+                    }
+                    @if (!String.IsNullOrEmpty(Model.errors))
+                    {
+                        string[] er = new string[] { };
+                        er = Model.errors.Split('*');
+                        foreach (var ers in er)
+                        {
+                            <label class="errs" style="color:red">@ers</label><br />
+                        }
+                    }
+                </div>
+            </div>
+            <span id="error"></span>
+        </div>
+    </form>
+</div>

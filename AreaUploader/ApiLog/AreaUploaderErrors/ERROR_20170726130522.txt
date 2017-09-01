@@ -1,0 +1,16 @@
+Vsts call has been made at:7/26/2017 1:05:22 PM
+
+
+Time Taken: 0
+Error has been occured :
+Unexpected character encountered while parsing value: <. Path '', line 3, position 1.
+   at Newtonsoft.Json.JsonTextReader.ParseValue()
+   at Newtonsoft.Json.JsonTextReader.ReadInternal()
+   at Newtonsoft.Json.JsonTextReader.Read()
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.ReadForType(JsonReader reader, JsonContract contract, Boolean hasConverter)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.Deserialize(JsonReader reader, Type objectType, Boolean checkAdditionalContent)
+   at Newtonsoft.Json.JsonSerializer.DeserializeInternal(JsonReader reader, Type objectType)
+   at Newtonsoft.Json.JsonConvert.DeserializeObject(String value, Type type, JsonSerializerSettings settings)
+   at Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value, JsonSerializerSettings settings)
+   at Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value)
+   at AreaUploader.Controllers.HomeController.GetprojectList(Authentication auth) in C:\Users\AkshayH\Documents\Visual Studio 2017\Projects\AreaUploader\AreaUploader\Controllers\HomeController.cs:line 160

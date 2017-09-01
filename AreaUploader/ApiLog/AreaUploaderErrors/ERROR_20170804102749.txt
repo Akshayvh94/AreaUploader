@@ -1,0 +1,13 @@
+Vsts call has been made at:8/4/2017 10:27:49 AM
+
+
+Time Taken: 3.97667
+Error has been occured :
+{
+  "innerException": null,
+  "message": "VS402371: Classification node name Family1 is already in use by a different child of parent classification node 4a2f0b87-a5e0-413f-a271-927c28305e3e. Choose a different name and try again.",
+  "typeName": "Microsoft.TeamFoundation.WorkItemTracking.Server.Metadata.ClassificationNodeDuplicateNameException, Microsoft.TeamFoundation.WorkItemTracking.Server, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+  "typeKey": "ClassificationNodeDuplicateNameException",
+  "errorCode": 0,
+  "eventId": 3200
+}
