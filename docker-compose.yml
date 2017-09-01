@@ -1,0 +1,8 @@
+version: '2.1'
+
+services:
+  areauploader:
+    image: areauploader
+    build:
+      context: .\AreaUploader
+      dockerfile: Dockerfile

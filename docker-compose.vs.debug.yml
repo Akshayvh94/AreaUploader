@@ -1,0 +1,13 @@
+version: '2.1'
+
+services:
+  areauploader:
+    image: areauploader:dev
+    build:
+      args:
+        source: ${DOCKER_BUILD_SOURCE}
+    volumes:
+      - .\AreaUploader:C:\inetpub\wwwroot
+      - ~\msvsmon:C:\msvsmon:ro
+    labels:
+      - "com.microsoft.visualstudio.targetoperatingsystem=windows"
